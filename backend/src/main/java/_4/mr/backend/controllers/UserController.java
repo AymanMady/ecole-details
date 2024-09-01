@@ -1,6 +1,5 @@
 package _4.mr.backend.controllers;
 
-
 import _4.mr.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +18,14 @@ public class UserController {
         String email = request.get("email");
         // Generate and send OTP
         userService.generateAndSendOtp(email);
+        System.out.println(userService.generateAndSendOtp(email));
         return ResponseEntity.ok("OTP sent to " + email);
     }
 
     @PostMapping("/verify-otp")
-    public ResponseEntity<String> verifyOtp(@RequestParam String email, @RequestParam String otp) {
+    public ResponseEntity<String> verifyOtp(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        String otp = request.get("otp");
         if (userService.verifyOtp(email, otp)) {
             return ResponseEntity.ok("OTP verified successfully. Proceed to reset password.");
         } else {
