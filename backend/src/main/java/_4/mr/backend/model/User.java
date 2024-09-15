@@ -23,5 +23,7 @@ public class User {
     private String phoneNumber;
     private String role;
     private String otp;
+    private boolean isActive;
+
 
 }

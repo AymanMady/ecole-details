@@ -35,18 +35,21 @@ public class UserService {
         }
     }
 
+
     public boolean verifyOtp(String email, String otp) {
         Optional<User> userOptional = userRepository.findByEmail(email);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             if (otp.equals(user.getOtp())) {
-                user.setOtp(null);  // Clear the OTP after verification
+                user.setActive(true);  // Activer le compte après vérification
+                user.setOtp(null);  // Effacer l'OTP après vérification
                 userRepository.save(user);
                 return true;
             }
         }
         return false;
     }
+
 
     public void resetPassword(String email, String newPassword) {
         Optional<User> userOptional = userRepository.findByEmail(email);

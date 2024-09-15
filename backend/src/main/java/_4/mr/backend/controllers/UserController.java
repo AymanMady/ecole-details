@@ -2,17 +2,33 @@ package _4.mr.backend.controllers;
 
 
 import _4.mr.backend.service.UserService;
+import _4.mr.backend.service.auth.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class UserController {
 
     @Autowired
     private UserService userService;
+
+
+
+    @PostMapping("/verify-otp")
+    public ResponseEntity<String> verifyOtp(@RequestParam String email, @RequestParam String otp) {
+        boolean isOtpValid = userService.verifyOtp(email,otp);
+        if (isOtpValid) {
+            return ResponseEntity.ok("Votre email a été vérifié avec succès.");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("OTP invalide.");
+    }
+
+
 
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> request) {
@@ -22,14 +38,6 @@ public class UserController {
         return ResponseEntity.ok("OTP sent to " + email);
     }
 
-    @PostMapping("/verify-otp")
-    public ResponseEntity<String> verifyOtp(@RequestParam String email, @RequestParam String otp) {
-        if (userService.verifyOtp(email, otp)) {
-            return ResponseEntity.ok("OTP verified successfully. Proceed to reset password.");
-        } else {
-            return ResponseEntity.status(400).body("Invalid OTP.");
-        }
-    }
 
     @PostMapping("/reset-password")
     public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> request) {

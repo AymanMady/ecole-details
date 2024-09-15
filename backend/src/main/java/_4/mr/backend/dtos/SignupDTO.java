@@ -14,4 +14,6 @@ public class SignupDTO {
     private String phoneNumber;
 
     private String role;
+
+
 }
