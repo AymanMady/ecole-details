@@ -24,15 +24,18 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public void generateAndSendOtp(String email) {
+    public boolean generateAndSendOtp(String email) {
         Optional<User> userOptional = userRepository.findByEmail(email);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             String otp = String.format("%06d", new Random().nextInt(999999));
             user.setOtp(otp);
-            userRepository.save(user);
+            System.out.println("Envoi de l'OTP à : " + user.getEmail());
             sendEmail(user.getEmail(), "Your OTP Code", "Your OTP code is " + otp);
+            userRepository.save(user);
         }
+
+        return false;
     }
 
 
@@ -61,10 +64,17 @@ public class UserService {
     }
 
     private void sendEmail(String to, String subject, String body) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(body);
-        mailSender.send(message);
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(to);
+            message.setSubject(subject);
+            message.setText(body);
+            mailSender.send(message);
+            System.out.println("Email sent successfully to " + to);
+        } catch (Exception e) {
+            System.out.println("Error sending email: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
+
 }
