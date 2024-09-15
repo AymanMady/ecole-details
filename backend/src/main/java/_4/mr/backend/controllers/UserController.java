@@ -38,16 +38,7 @@ public class UserController {
         return ResponseEntity.ok("OTP sent to " + email);
     }
 
-    @PostMapping("/verify-otp")
-    public ResponseEntity<String> verifyOtp(@RequestBody Map<String, String> request) {
-        String email = request.get("email");
-        String otp = request.get("otp");
-        if (userService.verifyOtp(email, otp)) {
-            return ResponseEntity.ok("OTP verified successfully. Proceed to reset password.");
-        } else {
-            return ResponseEntity.status(400).body("Invalid OTP.");
-        }
-    }
+
 
     @PostMapping("/reset-password")
     public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> request) {
