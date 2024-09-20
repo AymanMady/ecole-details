@@ -1,0 +1,81 @@
+<mat-card class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Profs</mat-card-title>
+    <button [ngStyle]="{width:'100px'}" mat-menu-item [routerLink]="['/ui-components/profs/add']">
+      <mat-icon>add</mat-icon>
+      <span>Add</span>
+    </button>
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource1" class="w-100">
+
+        <ng-container matColumnDef="nom">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14 p-l-0">
+            Nom
+          </th>
+          <td mat-cell *matCellDef="let prof" class="mat-body-1">
+            {{ prof.nom }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="prenom">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Prénom
+          </th>
+          <td mat-cell *matCellDef="let prof" class="mat-body-1">
+            {{ prof.prenom }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="adresse">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Adresse
+          </th>
+          <td mat-cell *matCellDef="let prof" class="mat-body-1">
+            {{ prof.adresse }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Email
+          </th>
+          <td mat-cell *matCellDef="let prof" class="mat-body-1">
+            {{ prof.email }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="telephone">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14">
+            Téléphone
+          </th>
+          <td mat-cell *matCellDef="let prof" class="mat-body-1">
+            {{ prof.telephone }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="f-w-600 mat-subtitle-1 f-s-14"></th>
+          <td mat-cell *matCellDef="let prof" class="mat-body-1">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="onEditProf(prof.id)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+              </button>
+              <button mat-menu-item (click)="onDeleteProf(prof.id)">
+                <mat-icon>delete</mat-icon>
+                <span>Delete</span>
+              </button>
+            </mat-menu>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['nom', 'prenom', 'adresse', 'email', 'telephone', 'actions']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['nom', 'prenom', 'adresse', 'email', 'telephone', 'actions']"></tr>
+
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

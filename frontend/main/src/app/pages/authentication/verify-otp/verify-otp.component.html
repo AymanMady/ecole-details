@@ -19,9 +19,6 @@
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Code</mat-label>
               <input matInput formControlName="code" />
-              <mat-error *ngIf="f.code.invalid && f.code.touched">
-                Veuillez entrer un code OTP valide.
-              </mat-error>
             </mat-form-field>
 
             <button mat-raised-button color="primary" type="submit" class="w-100 mt-3">

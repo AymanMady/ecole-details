@@ -1,10 +1,17 @@
 import { Routes } from '@angular/router';
 
 // ui
-import { AppFormsComponent } from './forms/forms.component';
-import { AppTablesComponent } from './tables/tables.component';
-import { AppEcolesComponent } from './ecoles/ecoles.component';
+
 import { AppHomeComponent } from './home/home.component';
+import { AllEcolesComponent } from './ecole/all/all.component';
+import { AddEcoleComponent } from './ecole/add/add.component';
+import { EditEcoleComponent } from './ecole/edit/edit.component';
+import { AllClassesComponent } from './classe/all/all.component';
+import { AddClasseComponent } from './classe/add/add.component';
+import { EditClasseComponent } from './classe/edit/edit.component';
+import { AllProfsComponent } from './prof/all/all.component';
+import { AddProfComponent } from './prof/add/add.component';
+import { EditProfComponent } from './prof/edit/edit.component';
 
 export const UiComponentsRoutes: Routes = [
   {
@@ -15,16 +22,40 @@ export const UiComponentsRoutes: Routes = [
         component: AppHomeComponent,
       },
       {
-        path: 'forms',
-        component: AppFormsComponent,
-      },
-      {
-        path: 'tables',
-        component: AppTablesComponent,
-      },
-      {
         path: 'ecoles',
-        component: AppEcolesComponent,
+        component: AllEcolesComponent,
+      },
+      {
+        path: 'ecoles/add',
+        component: AddEcoleComponent,
+      },
+      {
+        path: 'ecoles/edit/:id',
+        component: EditEcoleComponent,
+      },
+      {
+        path: 'classes',
+        component: AllClassesComponent,
+      },
+      {
+        path: 'classes/add',
+        component: AddClasseComponent,
+      },
+      {
+        path: 'classes/edit/:id',
+        component: EditClasseComponent,
+      },
+      {
+        path: 'profs',
+        component: AllProfsComponent,
+      },
+      {
+        path: 'profs/add',
+        component: AddProfComponent,
+      },
+      {
+        path: 'profs/edit/:id',
+        component: EditProfComponent,
       },
     ],
   },

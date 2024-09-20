@@ -14,19 +14,18 @@ export const navItems: NavItem[] = [
     divider: true
   },
   {
-    displayName: 'Forms',
-    iconName: 'solar:file-text-line-duotone',
-    route: '/ui-components/forms',
-  },
-  {
-    displayName: 'Tables',
-    iconName: 'solar:tablet-line-duotone',
-    route: '/ui-components/tables',
-  },
-  {
-    displayName: 'ecoles',
+    displayName: 'Ecoles',
     iconName: 'solar:tablet-line-duotone',
     route: '/ui-components/ecoles',
   },
-
+  {
+    displayName: 'Classes',
+    iconName: 'solar:tablet-line-duotone',
+    route: '/ui-components/classes',
+  },
+  {
+    displayName: 'Profs',
+    iconName: 'solar:tablet-line-duotone',
+    route: '/ui-components/profs',
+  },
 ];

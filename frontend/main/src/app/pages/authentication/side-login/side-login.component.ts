@@ -24,6 +24,8 @@ import { AuthService } from '../auth.service';  // Importation du service d'auth
   templateUrl: './side-login.component.html',
 })
 export class AppSideLoginComponent {
+  errorMessage: string | null = null;
+
   constructor(private router: Router, private authService: AuthService) {}
 
   form = new FormGroup({
@@ -47,6 +49,7 @@ export class AppSideLoginComponent {
         },
         (error) => {
           console.error('Erreur lors de la connexion:', error);
+          this.errorMessage = error.error;
         }
       );
     }

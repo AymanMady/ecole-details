@@ -6,7 +6,6 @@ import _4.mr.backend.model.User;
 import _4.mr.backend.repository.UserRepository;
 import _4.mr.backend.service.jwt.UserDetailsServiceImpl;
 import _4.mr.backend.util.JwtUtil;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -39,11 +37,14 @@ public class AuthenticationController {
     private UserRepository userRepository;
 
     @PostMapping("/login")
-    public AuthenticationResponse createAuthenticationToken(@RequestBody AuthenticationDTO authenticationDTO, HttpServletResponse response) throws BadCredentialsException, DisabledException, UsernameNotFoundException, IOException {
+    public AuthenticationResponse createAuthenticationToken(@RequestBody AuthenticationDTO authenticationDTO) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationDTO.getEmail(), authenticationDTO.getPassword()));
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(authenticationDTO.getEmail(), authenticationDTO.getPassword()));
         } catch (BadCredentialsException e) {
-            throw new BadCredentialsException("Incorrect username or password!");
+            throw new BadCredentialsException("Identifiant ou mot de passe incorrect !");
+        } catch (DisabledException e) {
+            throw new DisabledException("Le compte utilisateur est désactivé.");
         }
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationDTO.getEmail());
@@ -52,15 +53,13 @@ public class AuthenticationController {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             if (!user.isActive()) {
-                response.sendError(HttpServletResponse.SC_FORBIDDEN, "User is not activated. Please verify your email.");
-                return null;
+                throw new IllegalStateException("L'utilisateur n'est pas activé. Veuillez vérifier votre email.");
             }
         } else {
-            throw new UsernameNotFoundException("User not found!");
+            throw new UsernameNotFoundException("Utilisateur non trouvé !");
         }
 
         final String jwt = jwtUtil.generateToken(userDetails.getUsername());
-
         return new AuthenticationResponse(jwt);
     }
 }

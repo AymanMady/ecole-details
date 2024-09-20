@@ -1,0 +1,57 @@
+<mat-card class="cardWithShadow theme-card">
+  <mat-card-header>
+    <mat-card-title class="m-b-0">Modifier un professeur</mat-card-title>
+  </mat-card-header>
+  <mat-card-content class="b-t-1">
+    <!-- Formulaire pour modifier un professeur -->
+    <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <!-- Nom -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Nom du professeur</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput placeholder="Entrez le nom du professeur" formControlName="nom" />
+          </mat-form-field>
+        </div>
+
+        <!-- Prénom -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Prénom du professeur</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput placeholder="Entrez le prénom du professeur" formControlName="prenom" />
+          </mat-form-field>
+        </div>
+
+        <!-- Adresse -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Adresse du professeur</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput placeholder="Entrez l'adresse du professeur" formControlName="adresse" />
+          </mat-form-field>
+        </div>
+
+        <!-- Email -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Email du professeur</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput placeholder="Entrez l'email du professeur" formControlName="email" />
+          </mat-form-field>
+        </div>
+
+        <!-- Téléphone -->
+        <div class="col-lg-6">
+          <mat-label class="f-w-600 m-b-8 d-block">Téléphone du professeur</mat-label>
+          <mat-form-field appearance="outline" class="w-100" color="primary">
+            <input matInput placeholder="Entrez le numéro de téléphone du professeur" formControlName="telephone" />
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Boutons de soumission et d'annulation -->
+      <div class="m-t-12">
+        <button mat-flat-button color="primary" class="m-r-8" type="submit">Modifier</button>
+        <button mat-stroked-button color="warn" type="button" >Annuler</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

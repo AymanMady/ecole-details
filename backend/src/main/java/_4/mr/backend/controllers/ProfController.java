@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/profs")
+@RequestMapping("/api/profs")
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProfController {
 
     @Autowired
